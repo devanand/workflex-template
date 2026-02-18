@@ -1,0 +1,28 @@
+jacoco {
+    toolVersion = "0.8.14"
+}
+
+tasks.test {
+    finalizedBy tasks.jacocoTestReport
+}
+
+tasks.register("jacocoIntegrationTestReport", JacocoReport) {
+    dependsOn tasks.named("integrationTest")
+
+    executionData fileTree(buildDir).include(
+            "jacoco/test.exec",
+            "jacoco/integrationTest.exec"
+    )
+
+    sourceDirectories.setFrom(files(sourceSets.main.allSource.srcDirs))
+    classDirectories.setFrom(files(sourceSets.main.output))
+
+    reports {
+        xml.required = true
+        html.required = true
+    }
+}
+
+tasks.named("integrationTest") {
+    finalizedBy tasks.named("jacocoIntegrationTestReport")
+}

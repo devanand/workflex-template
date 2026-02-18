@@ -1,0 +1,22 @@
+sonar {
+    properties {
+        // Identify the project (change later when the real task name comes)
+        property "sonar.projectKey", "workflex-template-backend"
+        property "sonar.projectName", "workflex-template-backend"
+
+        // Source layout
+        property "sonar.sources", "src/main/java"
+        property "sonar.tests", "src/test/java,src/integrationTest/java"
+
+        // Compiled classes (Gradle layout)
+        property "sonar.java.binaries", "${layout.buildDirectory.get()}/classes/java/main"
+
+        // Use JaCoCo XML reports (unit + integration)
+        property "sonar.coverage.jacoco.xmlReportPaths",
+                "${layout.buildDirectory.get()}/reports/jacoco/test/jacocoTestReport.xml," +
+                        "${layout.buildDirectory.get()}/reports/jacoco/jacocoIntegrationTestReport/jacocoIntegrationTestReport.xml"
+
+        // Optional: avoid counting generated / build output
+        property "sonar.exclusions", "**/build/**"
+    }
+}

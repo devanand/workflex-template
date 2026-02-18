@@ -2,11 +2,15 @@ plugins {
 	id 'java'
 	id 'org.springframework.boot' version '4.0.2'
 	id 'io.spring.dependency-management' version '1.1.7'
+	// Quality / coverage / analysis
+	id 'checkstyle'
+	id 'jacoco'
+	id 'org.sonarqube' version '7.2.2.6593'
 }
 
 group = 'com.example'
 version = '0.0.1-SNAPSHOT'
-description = 'Demo project for Spring Boot'
+description = 'Workflex coding challenge complete'
 
 java {
 	toolchain {
@@ -23,6 +27,12 @@ dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-validation'
 	implementation 'org.springframework.boot:spring-boot-starter-webmvc'
 	implementation 'org.springdoc:springdoc-openapi-starter-webmvc-ui:2.8.14'
+	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+	implementation 'org.springframework.boot:spring-boot-h2console'
+	runtimeOnly 'com.h2database:h2'
+
+
+	//Test implementation
 	testImplementation 'org.springframework.boot:spring-boot-starter-actuator-test'
 	testImplementation 'org.springframework.boot:spring-boot-starter-validation-test'
 	testImplementation 'org.springframework.boot:spring-boot-starter-webmvc-test'
@@ -33,5 +43,14 @@ tasks.named('test') {
 	useJUnitPlatform()
 }
 
-// For integration tests
+// Integration tests source set + task
 apply from: 'gradle/integration-test.gradle'
+
+// Checkstyle config (your file)
+apply from: 'gradle/quality.gradle'
+
+// JaCoCo config incl. integration coverage (your file)
+apply from: 'gradle/coverage.gradle'
+
+// Sonar coverage
+apply from: 'gradle/sonar.gradle'
