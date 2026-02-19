@@ -1,5 +1,6 @@
 package com.example.application.api.exception;
 
+import com.example.application.exception.NotFoundException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.ConstraintViolationException;
 import org.springframework.http.HttpStatus;
@@ -30,6 +31,16 @@ public class GlobalExceptionHandler {
             fieldErrors.put(fe.getField(), fe.getDefaultMessage());
         }
         pd.setProperty("errors", fieldErrors);
+        return pd;
+    }
+
+    @ExceptionHandler(NotFoundException.class)
+    public ProblemDetail handleNotFound(NotFoundException ex, HttpServletRequest req) {
+        ProblemDetail pd = ProblemDetail.forStatus(HttpStatus.NOT_FOUND);
+        pd.setTitle("Not found");
+        pd.setType(URI.create("https://example.com/problems/not-found"));
+        pd.setDetail(ex.getMessage());
+        pd.setProperty("path", req.getRequestURI());
         return pd;
     }
 

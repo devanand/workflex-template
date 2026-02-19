@@ -1,4 +1,4 @@
-package com.example.application.dto;
+package com.example.application.api.dto;
 
 import java.time.Instant;
 

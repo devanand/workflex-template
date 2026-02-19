@@ -1,6 +1,6 @@
 package com.example.application.api.controller;
 
-import com.example.application.dto.PingResponse;
+import com.example.application.api.dto.PingResponse;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
