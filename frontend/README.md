@@ -138,3 +138,25 @@ ng test
 Open directly in browser to confirm asset path:
 
 http://localhost:4200/assets/icons/red-risk.svg
+
+## Sorting & Pagination (Planned)
+
+The current implementation loads all workations in a single request and renders them in the table.
+
+For scalability, the following improvements are planned:
+
+- **Server-driven sorting**
+  - Instead of sorting client-side, the UI will pass `sort` parameters to the backend.
+  - Example:
+    - `?sort=startDate,asc`
+    - `?sort=employee,desc`
+
+- **Server-side pagination**
+  - The frontend will request paginated data:
+    - `?page=0&size=20`
+  - Integrate Angular Material paginator to:
+    - Navigate pages
+    - Display total elements
+    - Maintain current sort state
+
+This approach ensures performance and memory efficiency for large datasets.

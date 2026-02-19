@@ -159,3 +159,43 @@ grep sonarqube
 # Backend (Spring Boot)
 
 ![Coverage](https://img.shields.io/badge/coverage-91%25-brightgreen)
+
+
+## Sorting & Pagination (Planned)
+
+Currently the API returns all workations in one response (sufficient for the take-home dataset).  
+Next steps for production readiness:
+
+- **Server-side sorting**
+    - Support query params like:
+        - `GET /workflex/workation?sort=startDate,asc`
+        - `GET /workflex/workation?sort=risk,desc`
+    - Implement using Spring Data `Sort` / `Pageable`.
+
+- **Server-side pagination**
+    - Support:
+        - `GET /workflex/workation?page=0&size=20&sort=startDate,desc`
+    - Return either Spring’s `Page<T>` metadata or a simple envelope:
+        - `items`, `page`, `size`, `totalElements`, `totalPages`.
+
+- **Stable filtering (optional)**
+    - Add filters like `origin`, `destination`, `risk`, date ranges to reduce payload size.
+
+## Future Improvements
+
+- **Scalable data loading**
+    - Replace “load entire CSV into memory” with a streaming approach (e.g., buffered reader / CSV parser streaming).
+    - Batch inserts (e.g., `saveAll` in chunks) to reduce transaction size.
+    - Make import idempotent using a unique constraint (`workation_id`) + upsert strategy (or ignore duplicates).
+
+- **Production-ready API patterns**
+    - Add server-side pagination + sorting (see above).
+    - Add validation + consistent error responses for query params.
+    - Add request-level caching headers where appropriate.
+
+- **Observability**
+    - Add basic request logging, latency metrics, and error counters.
+    - Log import stats: rows processed, inserted, skipped, duration.
+
+- **Database evolution**
+    - Add Flyway/Liquibase migrations instead of relying on `ddl-auto`.
