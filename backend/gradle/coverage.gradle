@@ -2,20 +2,18 @@ jacoco {
     toolVersion = "0.8.14"
 }
 
-tasks.test {
-    finalizedBy tasks.jacocoTestReport
-}
+/*
+ * UNIT TEST COVERAGE
+ */
+jacocoTestReport {
+    dependsOn test
 
-tasks.register("jacocoIntegrationTestReport", JacocoReport) {
-    dependsOn tasks.named("integrationTest")
+    executionData(fileTree(layout.buildDirectory).include(
+            "jacoco/test.exec"
+    ))
 
-    executionData fileTree(buildDir).include(
-            "jacoco/test.exec",
-            "jacoco/integrationTest.exec"
-    )
-
-    sourceDirectories.setFrom(files(sourceSets.main.allSource.srcDirs))
-    classDirectories.setFrom(files(sourceSets.main.output))
+    sourceDirectories.setFrom files(sourceSets.main.allSource.srcDirs)
+    classDirectories.setFrom files(sourceSets.main.output)
 
     reports {
         xml.required = true
@@ -23,6 +21,41 @@ tasks.register("jacocoIntegrationTestReport", JacocoReport) {
     }
 }
 
-tasks.named("integrationTest") {
-    finalizedBy tasks.named("jacocoIntegrationTestReport")
+/*
+ * INTEGRATION TEST COVERAGE
+ */
+tasks.register("jacocoIntegrationTestReport", JacocoReport) {
+    dependsOn integrationTest
+
+    executionData(fileTree(layout.buildDirectory).include(
+            "jacoco/integrationTest.exec"
+    ))
+
+    sourceDirectories.setFrom files(sourceSets.main.allSource.srcDirs)
+    classDirectories.setFrom files(sourceSets.main.output)
+
+    reports {
+        xml.required = true
+        html.required = true
+    }
+}
+
+/*
+ * AGGREGATED COVERAGE (Unit + Integration)
+ */
+tasks.register("jacocoAllReport", JacocoReport) {
+    dependsOn test, integrationTest
+
+    executionData(fileTree(layout.buildDirectory).include(
+            "jacoco/test.exec",
+            "jacoco/integrationTest.exec"
+    ))
+
+    sourceDirectories.setFrom files(sourceSets.main.allSource.srcDirs)
+    classDirectories.setFrom files(sourceSets.main.output)
+
+    reports {
+        xml.required = true
+        html.required = true
+    }
 }
