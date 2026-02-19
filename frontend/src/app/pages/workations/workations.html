@@ -1,0 +1,73 @@
+<div class="page">
+  <h2 class="title">Workations</h2>
+
+  <ng-container *ngIf="!loading; else loadingTpl">
+    <div class="table-card">
+      <table mat-table [dataSource]="dataSource" matSort class="workations-table">
+        <!-- Employee -->
+        <ng-container matColumnDef="employee">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>Employee</th>
+          <td mat-cell *matCellDef="let row">{{ row.employee }}</td>
+        </ng-container>
+
+        <!-- Origin -->
+        <ng-container matColumnDef="origin">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>Origin</th>
+          <td mat-cell *matCellDef="let row">
+            <span class="flag">{{ flagFor(row.origin) }}</span>
+            {{ row.origin }}
+          </td>
+        </ng-container>
+
+        <!-- Destination -->
+        <ng-container matColumnDef="destination">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>Destination</th>
+          <td mat-cell *matCellDef="let row">
+            <span class="flag">{{ flagFor(row.destination) }}</span>
+            {{ row.destination }}
+          </td>
+        </ng-container>
+
+        <!-- Start -->
+        <ng-container matColumnDef="startDate">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>Start</th>
+          <td mat-cell *matCellDef="let row">{{ row.startDate | date: 'dd/MM/yyyy' }}</td>
+        </ng-container>
+
+        <!-- End -->
+        <ng-container matColumnDef="endDate">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>End</th>
+          <td mat-cell *matCellDef="let row">{{ row.endDate | date: 'dd/MM/yyyy' }}</td>
+        </ng-container>
+
+        <!-- Working days -->
+        <ng-container matColumnDef="workingDays">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>Working days</th>
+          <td mat-cell *matCellDef="let row">{{ row.workingDays }}</td>
+        </ng-container>
+
+        <!-- Risk -->
+        <ng-container matColumnDef="risk">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>Risk</th>
+          <td mat-cell *matCellDef="let row">
+            <span class="risk-pill" [ngClass]="riskClass(row.risk)">
+              <mat-icon class="risk-icon" aria-hidden="true">
+                {{ row.risk === 'HIGH' ? 'error' : 'verified' }}
+              </mat-icon>
+              {{ riskLabel(row.risk) }}
+            </span>
+          </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns" class="header-row"></tr>
+
+        <!-- 🔥 The semicolon after displayedColumns is required -->
+        <tr mat-row *matRowDef="let row; columns: displayedColumns" class="data-row"></tr>
+      </table>
+    </div>
+  </ng-container>
+
+  <ng-template #loadingTpl>
+    <div class="loading">Loading workations…</div>
+  </ng-template>
+</div>

@@ -1,0 +1,76 @@
+.page {
+  padding: 24px;
+}
+
+.title {
+  margin-bottom: 16px;
+  font-weight: 600;
+}
+
+/* Remove card styling for flat look */
+.table-card {
+  border: none;
+}
+
+/* Make table fully flat grid */
+.workations-table {
+  width: 100%;
+  border-collapse: collapse;
+  border: 1px solid black; /* outer border */
+}
+
+/* Header cells */
+.workations-table th {
+  border: 1px solid black;
+  padding: 10px 12px;
+  text-align: left;
+  font-weight: 600;
+  background: white; /* flat look */
+}
+
+/* Data cells */
+.workations-table td {
+  border: 1px solid black;
+  padding: 10px 12px;
+}
+
+/* Remove Material hover shading */
+.data-row:hover td {
+  background: #e6e6e6;
+}
+
+/* Remove rounded appearance */
+.mat-mdc-table {
+  border-radius: 0;
+}
+
+/* Risk pill (keep flat look but no rounded bubble effect) */
+.risk-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-weight: 500;
+}
+
+/* Optional: keep risk color but no background */
+.risk-high {
+  color: red;
+}
+
+.risk-low {
+  color: green;
+}
+
+.risk-no {
+  color: blue;
+}
+
+.flag {
+  margin-right: 6px;
+}
+
+.risk-icon-img {
+  width: 16px;
+  height: 16px;
+  object-fit: contain;
+}
