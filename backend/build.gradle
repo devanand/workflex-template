@@ -39,6 +39,7 @@ dependencies {
 	testAnnotationProcessor 'org.projectlombok:lombok:1.18.32'
 
 	//Test implementation
+	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 	testImplementation 'org.springframework.boot:spring-boot-starter-actuator-test'
 	testImplementation 'org.springframework.boot:spring-boot-starter-validation-test'
 	testImplementation 'org.springframework.boot:spring-boot-starter-webmvc-test'
