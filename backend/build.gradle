@@ -8,7 +8,7 @@ plugins {
 	id 'org.sonarqube' version '7.2.2.6593'
 }
 
-group = 'com.example'
+group = 'com.workflex'
 version = '0.0.1-SNAPSHOT'
 description = 'Workflex coding challenge complete'
 
@@ -31,6 +31,12 @@ dependencies {
 	implementation 'org.springframework.boot:spring-boot-h2console'
 	runtimeOnly 'com.h2database:h2'
 
+	//Lombok
+	compileOnly 'org.projectlombok:lombok:1.18.32'
+	annotationProcessor 'org.projectlombok:lombok:1.18.32'
+
+	testCompileOnly 'org.projectlombok:lombok:1.18.32'
+	testAnnotationProcessor 'org.projectlombok:lombok:1.18.32'
 
 	//Test implementation
 	testImplementation 'org.springframework.boot:spring-boot-starter-actuator-test'

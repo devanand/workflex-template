@@ -1,4 +1,4 @@
-package com.example.application;
+package com.workflex.workation;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
